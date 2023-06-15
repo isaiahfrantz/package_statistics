@@ -1,4 +1,1 @@
-getopt
-gzip
 requests
-re
