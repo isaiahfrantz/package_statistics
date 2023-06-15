@@ -17,7 +17,6 @@ import sys
 import getopt
 import package_statistics_lib as psl
 
-
 # remove first arg/program name
 argslist = sys.argv[1:]
 
@@ -26,14 +25,19 @@ OPTIONS = "hdla:c:"
 # Long options
 long_options = ["help", "debug", "list", "arch=", "count="]
 
+try:
+    # Parse args
+    args, values = getopt.getopt(argslist, OPTIONS, long_options)
+except getopt.error as err:
+        # we hit an error, print details
+        psl.pm(f"ERROR: arg parsing error=>{str(err)}<")
+
 # globals and default values
 ARCH = 'ARCH_NOT_SET'
 NUM  = 10
 
-try:
-    # Parse args
-    args, values = getopt.getopt(argslist, OPTIONS, long_options)
-
+def main(args):
+    global ARCH
     # check args
     for arg, val in args:
         if arg in ("-h", "--help"):
@@ -68,15 +72,17 @@ try:
                 psl.pm(f"ERROR: arg for count is not numerical=>{str(val)}<")
                 sys.exit(1)
 
-except getopt.error as err:
-    # we hit an error, print details
-    psl.pm(f"ERROR: arg parsing error=>{str(err)}<")
 
-# required args
-if ARCH == 'ARCH_NOT_SET':
-    psl.pm("ERROR: arch arg is required!")
-    psl.show_help(1)
 
-# we know the file exists, lets get it
-psl.pm(f"Package statistics for arch=>{ARCH}<:")
-psl.top_count(ARCH,NUM)
+    # required args
+    if ARCH == 'ARCH_NOT_SET':
+        psl.pm("ERROR: arch arg is required!")
+        psl.show_help(1)
+
+    # we know the file exists, lets get it
+    psl.pm(f"Package statistics for arch=>{ARCH}<:")
+    psl.top_count(ARCH,NUM)
+
+# start main script
+if __name__ == '__main__':
+    raise SystemExit(main(args))
