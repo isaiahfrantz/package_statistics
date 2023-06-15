@@ -8,3 +8,4 @@
  - Created a main() to allow for basic testing
  - Created an initial test for main() so GH actions had something to test
  - Added .gitignore to exclude cache files
+ - Added pythonpath option to pyproject.toml so pytest can find my code
