@@ -36,7 +36,7 @@ except getopt.error as err:
 ARCH = 'ARCH_NOT_SET'
 NUM  = 10
 
-def main(args):
+def main(args) -> int:
     global ARCH
     # check args
     for arg, val in args:
@@ -82,6 +82,8 @@ def main(args):
     # we know the file exists, lets get it
     psl.pm(f"Package statistics for arch=>{ARCH}<:")
     psl.top_count(ARCH,NUM)
+
+    return 0
 
 # start main script
 if __name__ == '__main__':
