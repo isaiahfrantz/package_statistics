@@ -37,7 +37,7 @@ ARCH = 'ARCH_NOT_SET'
 NUM  = 10
 
 def main(args) -> int:
-    global ARCH
+    global ARCH, NUM
     # check args
     for arg, val in args:
         if arg in ("-h", "--help"):
